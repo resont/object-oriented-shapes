@@ -1,11 +1,12 @@
-import abc, math, colors,numbers
+import abc, math, numbers
 import descriptors as desc
+from colors import Colors
 
 class ConvexPolygon(abc.ABC):
     @abc.abstractclassmethod
     def __init__(self):
-        self.fill_colour = colors.WHITE
-        self.outline_colour = colors.BLACK
+        self.fill_colour = Colors.WHITE
+        self.outline_colour = Colors.BLACK
 
     @abc.abstractclassmethod
     def area(self):
@@ -30,11 +31,13 @@ class Triangle(ConvexPolygon):
         self.a, self.b, self.c = a, b, c
 
     def perimeter(self):
-        return self.a + self.b + self.c
+        perimeter = self.a + self.b + self.c
+        return "{:.2f}".format(perimeter)
 
     def area(self):
-        p = self.perimeter() / 2
-        return math.sqrt(p * (p - self.a) * (p - self.b) * (p - self.c))
+        p = float(self.perimeter()) / 2
+        area = math.sqrt(p * (p - self.a) * (p - self.b) * (p - self.c))
+        return "{:.2f}".format(area)
 
     def draw(self):
         pass
@@ -59,13 +62,15 @@ class ConvexQuadrilateral(ConvexPolygon):
         
         self.e, self.f = e, f
 
-        self.angle = angle
+        self.angle = math.radians(angle)
 
     def perimeter(self):
-        return self.a + self.b + self.c + self.d
+        perimeter = self.a + self.b + self.c + self.d
+        return "{:.2f}".format(perimeter)
 
     def area(self):
-        return (self.e * self.f)/2 * math.asin(self.angle)
+        area = (self.e * self.f)/2 * math.sin(self.angle)
+        return "{:.2f}".format(area)
 
     def draw(self):
         pass
@@ -78,13 +83,15 @@ class RegularPentagon(ConvexPolygon):
     def __init__(self,a):
         super().__init__()
         self.a = a
-        self.angle = 36
+        self.angle = math.radians(36)
 
     def perimeter(self):
-        return self.a * 5
+        perimeter = self.a * 5
+        return "{:.2f}".format(perimeter)
 
     def area(self):
-        return 5/4 * self.a ** 2 * math.atan(1/angle)
+        area = 5/4 * self.a ** 2 * (1/math.tan(self.angle))
+        return "{:.2f}".format(area)
 
     def draw(self):
         pass
@@ -98,10 +105,12 @@ class RegularHexagon(ConvexPolygon):
         self.a = a
 
     def perimeter(self):
-        return self.a * 6
+        perimeter = self.a * 6
+        return "{:.2f}".format(perimeter)
 
     def area(self):
-        return (3 * a ** 2 * math.sqrt(3))/2
+        area = (3 * self.a ** 2 * math.sqrt(3))/2
+        return "{:.2f}".format(area)
 
     def draw(self):
         pass
@@ -115,10 +124,12 @@ class RegularOctagon(ConvexPolygon):
         self.a = a
 
     def perimeter(self):
-        return self.a * 8
+        perimeter = self.a * 8
+        return "{:.2f}".format(perimeter)
 
     def area(self):
-        return 2 * (1 + math.sqrt(2)) * self.a ** 2
+        area = 2 * (1 + math.sqrt(2)) * self.a ** 2
+        return "{:.2f}".format(area)
 
     def draw(self):
         pass
@@ -128,24 +139,60 @@ class IsoscelesTriangle(Triangle):
     def __init__(self, a, b):
         super().__init__(a,b,b)
 
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
+
 class EquilateralTriangle(IsoscelesTriangle):
     def __init__(self,a):
         super().__init__(a,a)
+
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
 
 class Parallelogram(ConvexQuadrilateral):
     def __init__(self, a, b, e, f, angle):
         super().__init__(a, b, a, b, e, f, angle)
 
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
+
 class Kite(ConvexQuadrilateral):
     def __init__(self, a, b, e, f):
         super().__init__(a, a, b, b, e, f, 90)
+
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
 
 class Rhombus(Kite):
     def __init__(self, a, e, f):
         super().__init__(a, a, e, f)
 
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
+
 class Square(Rhombus):
     def __init__(self, a):
-        d = a * math.sqrt(2)
+        d = float(a) * math.sqrt(2)
         super().__init__(a, d, d)
+
+    def perimeter(self):
+        return super().perimeter()
+
+    def area(self):
+        return super().area()
 
