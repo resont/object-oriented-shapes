@@ -1,6 +1,7 @@
 import abc, math, numbers
 import descriptors as desc
 from colors import Colors
+from tkinter import *
 
 class ConvexPolygon(abc.ABC):
     @abc.abstractclassmethod
@@ -20,6 +21,15 @@ class ConvexPolygon(abc.ABC):
     def draw(self):
         pass
 
+    def base_drawing(self, points):
+        root = Tk()
+
+        canvas = Canvas(root, width=500, height=500)
+        canvas.pack()
+
+        canvas.create_polygon(points, fill=self.fill_colour, outline=self.outline_colour)        
+        mainloop()
+
 class Triangle(ConvexPolygon):
     #boki trójkąta
     a = desc.QuantityAndType(numbers.Real)
@@ -29,6 +39,7 @@ class Triangle(ConvexPolygon):
     def __init__(self,a,b,c):
         super().__init__()
         self.a, self.b, self.c = a, b, c
+        
 
     def perimeter(self):
         perimeter = self.a + self.b + self.c
@@ -40,7 +51,17 @@ class Triangle(ConvexPolygon):
         return "{:.2f}".format(area)
 
     def draw(self):
-        pass
+
+        vector = (100,100)
+
+        alpha = math.degrees(math.acos((self.a ** 2 + self.b ** 2 - self.c ** 2)/(2 * self.a * self.b)))
+
+        point_a = (0 + vector[0],0 + vector[1])
+        point_b = (vector[0] + math.cos(math.radians(alpha/2)) * self.b, vector[1] + math.sin(math.radians(alpha/2)) * self.b)
+        point_c = (point_b[0] + math.cos(math.radians(180 - alpha/2)) * self.c, point_b[1] + math.sin(math.radians(180 - alpha/2)) * self.c)
+
+        self.base_drawing([point_a,point_b,point_c])
+
 
 class ConvexQuadrilateral(ConvexPolygon):
     #boki czworokąta
@@ -139,60 +160,30 @@ class IsoscelesTriangle(Triangle):
     def __init__(self, a, b):
         super().__init__(a,b,b)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 
 class EquilateralTriangle(IsoscelesTriangle):
     def __init__(self,a):
         super().__init__(a,a)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 
 class Parallelogram(ConvexQuadrilateral):
     def __init__(self, a, b, e, f, angle):
         super().__init__(a, b, a, b, e, f, angle)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 
 class Kite(ConvexQuadrilateral):
     def __init__(self, a, b, e, f):
         super().__init__(a, a, b, b, e, f, 90)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 
 class Rhombus(Kite):
     def __init__(self, a, e, f):
         super().__init__(a, a, e, f)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 
 class Square(Rhombus):
     def __init__(self, a):
         d = float(a) * math.sqrt(2)
         super().__init__(a, d, d)
 
-    def perimeter(self):
-        return super().perimeter()
-
-    def area(self):
-        return super().area()
 

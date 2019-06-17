@@ -103,9 +103,12 @@ class Menu:
             triangle = Triangle(a,b,c)
             print("Perimeter: "+ str(triangle.perimeter()))
             print("Area: "+ str(triangle.area()))
+            triangle.draw()
 
         else:
             print("This is not a triangle!")
+
+        
 
     def isosceles_triangle(self):
         print()
@@ -122,6 +125,7 @@ class Menu:
             triangle = IsoscelesTriangle(a,b)
             print("Perimeter: "+ str(triangle.perimeter()))
             print("Area: "+ str(triangle.area()))
+            triangle.draw()
 
         else:
             print("This is not a triangle!")
@@ -135,6 +139,7 @@ class Menu:
         triangle = EquilateralTriangle(a)
         print("Perimeter: "+ str(triangle.perimeter()))
         print("Area: "+ str(triangle.area()))
+        triangle.draw()
 
 
     def quadrilateral(self):
