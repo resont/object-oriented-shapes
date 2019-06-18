@@ -54,7 +54,7 @@ class Triangle(ConvexPolygon):
 
         vector = (200,200)
 
-        alpha = math.degrees(math.acos((self.a ** 2 + self.b ** 2 - self.c ** 2)/(2 * self.a * self.b)))
+        alpha = math.degrees(math.acos((self.a ** 2 + self.b ** 2 - self.c ** 2)/(2.0 * self.a * self.b)))
 
         point_a = (0 + vector[0],0 + vector[1])
         point_b = (vector[0] + math.cos(math.radians(alpha/2)) * self.b, vector[1] + math.sin(math.radians(alpha/2)) * self.b)
@@ -218,7 +218,7 @@ class RegularOctagon(ConvexPolygon):
 
 class IsoscelesTriangle(Triangle):
     def __init__(self, a, b):
-        super().__init__(a,a,b)
+        super().__init__(a,b,a)
 
 
 class EquilateralTriangle(IsoscelesTriangle):
