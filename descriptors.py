@@ -21,7 +21,7 @@ class AutoStorage:
 
     def __set__(self, instance, value):
         # sprawdzaniem poprawność jest odelegowane do klasy Validated
-        # (a właściwie do klas po niej dzidziczących)
+       
         setattr(instance, self.storage_name, value)
 
 
