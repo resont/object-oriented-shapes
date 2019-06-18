@@ -64,37 +64,70 @@ class Triangle(ConvexPolygon):
 
 
 class ConvexQuadrilateral(ConvexPolygon):
-    #boki czworokąta
-    a = desc.QuantityAndType(numbers.Real)
-    b = desc.QuantityAndType(numbers.Real)
-    c = desc.QuantityAndType(numbers.Real)
-    d = desc.QuantityAndType(numbers.Real)
-
     #przekątne czworokąta
-    e = desc.QuantityAndType(numbers.Real)
-    f = desc.QuantityAndType(numbers.Real)
+    AC = desc.QuantityAndType(numbers.Real)
+    BD = desc.QuantityAndType(numbers.Real)
 
     #kąt przecięcia przekątnych
     angle = desc.Range(0,180)
 
-    def __init__(self,a,b,c,d,e,f,angle):
-        super().__init__()
-        self.a, self.b, self.c, self.d = a, b, c, d
-        
-        self.e, self.f = e, f
+    #stosunek przecięcia przekątnych
+    AC_custs_BD = desc.Range(0,1)
+    BD_cuts_AC = desc.Range(0,1)
 
-        self.angle = math.radians(angle)
+    def __init__(self,e,f,angle,AC_ratio,BD_ratio):
+        super().__init__()
+        self.AC, self.BD = e, f
+
+        self.angle = angle
+
+        self.AC_custs_BD = AC_ratio
+        self.BD_cuts_AC = BD_ratio
+
+        self._angles()
+
 
     def perimeter(self):
-        perimeter = self.a + self.b + self.c + self.d
+        AB = self.AS ** 2 + self.BS ** 2 - 2 * self.AS * self.BS * math.cos(math.radians(self.ASB_angle))
+        AB = math.sqrt(AB)
+        BC = self.BS ** 2 + self.CS ** 2 - 2 * self.BS * self.CS * math.cos(math.radians(self.BSC_angle))
+        BC = math.sqrt(BC)
+        CD = self.CS ** 2 + self.DS ** 2 - 2 * self.CS * self.DS * math.cos(math.radians(self.DSC_angle))
+        CD = math.sqrt(CD)
+        DA = self.DS ** 2 + self.AS ** 2 - 2 * self.DS * self.AS * math.cos(math.radians(self.ASD_angle))
+        DA = math.sqrt(DA)
+        perimeter = AB + BC + CD + DA
         return "{:.2f}".format(perimeter)
 
     def area(self):
-        area = (self.e * self.f)/2 * math.sin(self.angle)
+        area = (self.AC * self.BD)/2 * math.sin(math.radians(self.angle))
         return "{:.2f}".format(area)
 
     def draw(self):
-        pass
+        point_a = (200,200)
+        point_s = (point_a[0] + math.cos(0) * self.AS, point_a[1] + math.sin(0) * self.AS)
+        point_b = (point_s[0] + math.cos(math.radians(180 - self.ASB_angle)) * self.BS, point_s[1] + math.sin(math.radians(180 - self.ASB_angle)) * self.BS)
+        point_c = (point_s[0] +  math.cos(0) * self.CS, point_s[1] + math.sin(0) * self.CS)
+        point_d = (point_s[0] + math.cos(math.radians(180 + self.ASD_angle)) * self.DS, point_s[1] + math.sin(math.radians(180 + self.ASD_angle)) * self.DS)
+
+        points = [point_a,point_b,point_c,point_d]
+
+        self.base_drawing(points)
+
+    def _angles(self):
+        self.ASB_angle = self.angle
+
+        self.AS = self.BD_cuts_AC * self.AC
+        self.CS = self.AC = self.AS
+
+        self.BS = self.AC_custs_BD * self.BD
+        self.DS = self.BD - self.BS
+
+        self.DSC_angle = self.ASB_angle
+        self.ASD_angle = 180 - self.ASB_angle
+        self.BSC_angle = self.ASD_angle
+
+
 
 
 class RegularPentagon(ConvexPolygon):
@@ -194,23 +227,22 @@ class EquilateralTriangle(IsoscelesTriangle):
 
 
 class Parallelogram(ConvexQuadrilateral):
-    def __init__(self, a, b, e, f, angle):
-        super().__init__(a, b, a, b, e, f, angle)
+    def __init__(self, e, f, angle):
+        super().__init__(e, f, angle, 0.5, 0.5)
 
 
 class Kite(ConvexQuadrilateral):
-    def __init__(self, a, b, e, f):
-        super().__init__(a, a, b, b, e, f, 90)
+    def __init__(self, e, f):
+        super().__init__(e, f, 90, 0.7, 0.5)
 
 
-class Rhombus(Kite):
-    def __init__(self, a, e, f):
-        super().__init__(a, a, e, f)
+class Rhombus(Parallelogram):
+    def __init__(self, e, f):
+        super().__init__(e, f, 90)
 
 
 class Square(Rhombus):
-    def __init__(self, a):
-        d = float(a) * math.sqrt(2)
-        super().__init__(a, d, d)
+    def __init__(self, e):
+        super().__init__(e, e)
 
 
