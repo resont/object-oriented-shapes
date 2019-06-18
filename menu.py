@@ -1,4 +1,5 @@
 from classes import *
+import colors
 
 class Menu:
     def __init__(self):
@@ -8,6 +9,7 @@ class Menu:
             "3" : self.regular_pentagon,
             "4" : self.regular_hexagon,
             "5" : self.regular_octagon,
+            "6" : self.set_color,
             "0" : self.exit_program
         }
 
@@ -23,6 +25,11 @@ class Menu:
             "3" : self.kite,
             "4" : self.rhombus,
             "5" : self.square
+        }
+
+        self.menu_colors = {
+            "1" : self.fill_color,
+            "2" : self.outline_color
         }
 
     def triangles(self):
@@ -224,6 +231,48 @@ class Menu:
                 self.options[option]()
             else:
                 print("Invalid option.")
+
+    def set_color(self):
+        print()
+        for a, b in self.menu_colors.items():
+            print(f"{a} : {b.__name__}")
+
+        option = input("Choose an option: ")
+        
+        if option in self.menu_colors:
+            self.menu_colors[option]()
+        else:
+            print("Invalid option.")
+            self.quadrilaterals()
+
+    def fill_color(self):
+        print()
+
+        for color in colors.colors:
+            print(color)
+        
+        option = input("Choose a color: ")
+
+        if option in colors.colors:
+            colors.fill_color = option
+        else:
+            print("Invalid color.")
+            self.set_color()
+
+    def outline_color(self):
+        print()
+
+        for color in colors.colors:
+            print(color)
+        
+        option = input("Choose a color: ")
+
+        if option in colors.colors:
+            colors.outline_color = option
+        else:
+            print("Invalid color.")
+            self.set_color()
+        
 
     def exit_program(self):
         exit()

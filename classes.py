@@ -1,13 +1,13 @@
 import abc, math, numbers
 import descriptors as desc
-from colors import Colors
+import colors
 from tkinter import *
 
 class ConvexPolygon(abc.ABC):
     @abc.abstractclassmethod
     def __init__(self):
-        self.fill_colour = Colors.WHITE
-        self.outline_colour = Colors.BLACK
+        self.fill_color = colors.fill_color
+        self.outline_color = colors.outline_color
 
     @abc.abstractclassmethod
     def area(self):
@@ -27,7 +27,7 @@ class ConvexPolygon(abc.ABC):
         canvas = Canvas(root, width=500, height=500)
         canvas.pack()
 
-        canvas.create_polygon(points, fill=self.fill_colour, outline=self.outline_colour)        
+        canvas.create_polygon(points, fill=self.fill_color, outline=self.outline_color)        
         mainloop()
 
 class Triangle(ConvexPolygon):
