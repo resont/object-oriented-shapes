@@ -1,9 +1,13 @@
-class Colors:
-    WHITE = "white"
-    BLACK = "black"
-    RED = "red"
-    YELLOW = "yellow"
-    BLUE = "blue"
-    VIOLET = "violet"
-    PURPLE = "purple"
-    GREY = "grey"
+colors = [
+    "white",
+    "black",
+    "red",
+    "yellow",
+    "blue",
+    "violet",
+    "purple",
+    "grey"
+]
+
+fill_color = "white"
+outline_color = "black"
