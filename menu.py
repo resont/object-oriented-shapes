@@ -149,66 +149,64 @@ class Menu:
         print()
         print("Input the required parameters")
 
-        a = float(input("Side a: "))
-        b = float(input("Side b: "))
-        c = float(input("Side c: "))
-        d = float(input("Side d: "))
         e = float(input("Diagonal ac: "))
         f = float(input("Diagonal bd: "))
         angle = float(input("Angle of intersection of diagonals: "))
+        AC_ratio = float(input("The ratio in which the diagonal bd intersects the diagonal ac: "))
+        BD_ratio = float(input("The ratio in which the diagonal ac intersects the diagonal bd: "))
 
-        quadrilateral = ConvexQuadrilateral(a,b,c,d,e,f,angle)
+        quadrilateral = ConvexQuadrilateral(e,f,angle,AC_ratio,BD_ratio)
         print("Perimeter: "+ str(quadrilateral.perimeter()))
         print("Area: "+ str(quadrilateral.area()))
+        quadrilateral.draw()
 
     def parallelogram(self):
         print()
         print("Input the required parameters")
 
-        a = float(input("Side a: "))
-        b = float(input("Side b: "))
         e = float(input("Diagonal ac: "))
         f = float(input("Diagonal bd: "))
         angle = float(input("Angle of intersection of diagonals: "))
 
-        parallelogram = Parallelogram(a,b,e,f,angle)
+        parallelogram = Parallelogram(e,f,angle)
         print("Perimeter: "+ str(parallelogram.perimeter()))
         print("Area: "+ str(parallelogram.area()))
+        parallelogram.draw()
 
     def kite(self):
         print()
         print("Input the required parameters")
 
-        a = float(input("Side a: "))
-        b = float(input("Side b: "))
         e = float(input("Diagonal ac: "))
         f = float(input("Diagonal bd: "))
 
-        kite = Kite(a,b,e,f)
+        kite = Kite(e,f)
         print("Perimeter: "+ str(kite.perimeter()))
         print("Area: "+ str(kite.area()))
+        kite.draw()
 
     def rhombus(self):
         print()
         print("Input the required parameters")
 
-        a = float(input("Side a: "))
         e = float(input("Diagonal ac: "))
         f = float(input("Diagonal bd: "))
 
-        rhombus = Rhombus(a,e,f)
+        rhombus = Rhombus(e,f)
         print("Perimeter: "+ str(rhombus.perimeter()))
         print("Area: "+ str(rhombus.area()))
+        rhombus.draw()
 
     def square(self):
         print()
         print("Input the required parameters")
 
-        a = float(input("Side: "))
+        e = float(input("Diagonal: "))
 
-        square = Square(a)
+        square = Square(e)
         print("Perimeter: "+ str(square.perimeter()))
         print("Area: "+ str(square.area()))
+        square.draw()
 
 
     def show(self):
