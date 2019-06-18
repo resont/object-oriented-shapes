@@ -24,7 +24,7 @@ class ConvexPolygon(abc.ABC):
     def base_drawing(self, points):
         root = Tk()
 
-        canvas = Canvas(root, width=500, height=500)
+        canvas = Canvas(root, width=600, height=600)
         canvas.pack()
 
         canvas.create_polygon(points, fill=self.fill_color, outline=self.outline_color)        
