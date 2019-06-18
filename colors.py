@@ -6,3 +6,4 @@ class Colors:
     BLUE = "blue"
     VIOLET = "violet"
     PURPLE = "purple"
+    GREY = "grey"
