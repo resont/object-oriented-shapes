@@ -63,6 +63,7 @@ class Menu:
 
         print("Perimeter: "+ str(pentagon.perimeter()))
         print("Area: "+ str(pentagon.area()))
+        pentagon.draw()
 
     def regular_hexagon(self):
         print()
@@ -74,6 +75,7 @@ class Menu:
 
         print("Perimeter: "+ str(hexagon.perimeter()))
         print("Area: "+ str(hexagon.area()))
+        hexagon.draw()
 
     def regular_octagon(self):
         print()
@@ -85,6 +87,7 @@ class Menu:
 
         print("Perimeter: "+ str(octagon.perimeter()))
         print("Area: "+ str(octagon.area()))
+        octagon.draw()
 
 
     def triangle(self):
@@ -114,8 +117,8 @@ class Menu:
         print()
         print("Input the required parameters")
 
-        a = float(input("Side:"))
-        b = float(input("Base:"))
+        a = float(input("Side: "))
+        b = float(input("Base: "))
 
         triangle_check = [a,a,b]
         triangle_check.sort()
@@ -134,7 +137,7 @@ class Menu:
         print()
         print("Input the required parameters")
 
-        a = float(input("Side:"))
+        a = float(input("Side: "))
 
         triangle = EquilateralTriangle(a)
         print("Perimeter: "+ str(triangle.perimeter()))

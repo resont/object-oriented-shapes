@@ -52,7 +52,7 @@ class Triangle(ConvexPolygon):
 
     def draw(self):
 
-        vector = (100,100)
+        vector = (200,200)
 
         alpha = math.degrees(math.acos((self.a ** 2 + self.b ** 2 - self.c ** 2)/(2 * self.a * self.b)))
 
@@ -115,7 +115,16 @@ class RegularPentagon(ConvexPolygon):
         return "{:.2f}".format(area)
 
     def draw(self):
-        pass
+        vector = (250,250)
+        angle = 360/5
+        points = []
+        for i in range(5):
+            points.append((
+                vector[0] + self.a * math.cos(math.pi/180 * i * angle),
+                vector[1] + self.a * math.sin(math.pi/180 * i * angle)
+            ))
+        
+        self.base_drawing(points)
 
 class RegularHexagon(ConvexPolygon):
     #bok sześciokąta
@@ -134,7 +143,16 @@ class RegularHexagon(ConvexPolygon):
         return "{:.2f}".format(area)
 
     def draw(self):
-        pass
+        vector = (250,250)
+        angle = 360/6
+        points = []
+        for i in range(6):
+            points.append((
+                vector[0] + self.a * math.cos(math.pi/180 * i * angle),
+                vector[1] + self.a * math.sin(math.pi/180 * i * angle)
+            ))
+        
+        self.base_drawing(points)
 
 class RegularOctagon(ConvexPolygon):
     #bok ośmiokąta
@@ -153,7 +171,16 @@ class RegularOctagon(ConvexPolygon):
         return "{:.2f}".format(area)
 
     def draw(self):
-        pass
+        vector = (250,250)
+        angle = 360/8
+        points = []
+        for i in range(8):
+            points.append((
+                vector[0] + self.a * math.cos(math.pi/180 * i * angle),
+                vector[1] + self.a * math.sin(math.pi/180 * i * angle)
+            ))
+        
+        self.base_drawing(points)
 
 
 class IsoscelesTriangle(Triangle):
